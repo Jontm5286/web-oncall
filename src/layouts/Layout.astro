@@ -1,0 +1,53 @@
+---
+import BaseHead from "@components/BaseHead.astro";
+import Footer from "@pages/section/Footer.astro";
+import Navbar from "@components/NavBar.astro";
+import "@root/styles/global.css"; // Import your global CSS file
+
+export * from "gsap";
+export * from "gsap/ScrollToPlugin";
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth light">
+  <BaseHead />
+  <body>
+    <header>
+      <Navbar />
+    </header>
+    <main id="smooth-wrapper">
+      <div id="smooth-content">
+        <slot />
+        <!-- Astro slot para inyectar contenido de la página -->
+      </div>
+    </main>
+    <Footer />
+    <script>
+      // Ensure GSAP and ScrollTrigger are loaded
+      document.addEventListener("astro:page-load", () => {
+        // Select all elements with the class 'scroll-section'
+        const sections = gsap.utils.toArray(".scroll-section");
+
+        sections.forEach((section) => {
+          gsap.fromTo(
+            section as HTMLElement, // Cast section to HTMLElement
+            { autoAlpha: 0, y: 50 }, // Initial state: invisible and slightly down
+            {
+              autoAlpha: 1, // Final state: visible
+              y: 0, // Final state: original position
+              duration: 0.8, // Animation duration
+              ease: "power2.out", // Easing function
+              scrollTrigger: {
+                trigger: section as HTMLElement, // The element that triggers the animation
+                start: "top center+=100", // Animation starts when the top of the section is 100px past the center of the viewport
+                end: "bottom center", // Animation ends when the bottom of the section reaches the center of the viewport
+                toggleActions: "play none none reverse", // Play animation on enter, reverse on leave
+                // markers: true, // Uncomment for debugging ScrollTrigger positions
+              },
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

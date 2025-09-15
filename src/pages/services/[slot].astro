@@ -1,0 +1,81 @@
+---
+import Layout from "@root/layouts/LayoutService.astro";
+import Hero from "@pages/section/Hero.astro";
+// Obtener el parámetro 'slot' de la URL
+export async function getStaticPaths() {
+    // List all the service slugs you want to generate pages for
+    return [
+        { params: { slot: "gestion-integral-clientes" } },
+        { params: { slot: "automatizacion-inteligente" } },
+        { params: { slot: "soporte-multicanal" } },
+        { params: { slot: "soporte-bilingue" } },
+        { params: { slot: "back-office" } },
+        { params: { slot: "soluciones-por-industria" } },
+    ];
+}
+
+const { slot } = Astro.params;
+
+// Aquí podrías buscar la información específica del servicio usando el 'slot'
+// Por ahora, solo mostraremos el nombre del servicio
+const serviceName = slot
+    ? slot.charAt(0).toUpperCase() + slot.slice(1).replace(/-/g, " ")
+    : "Servicio Desconocido";
+const pageTitle = `Detalles del Servicio: ${serviceName}`;
+---
+
+<Layout title={pageTitle}>
+    <Hero
+        title={serviceName}
+        subtitle="Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth"
+        primaryButtonText="Solicita una Consulta Gratuita"
+        secondaryButtonText="Descubre Nuestras Soluciones"
+        backgroundImage="/src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg"
+    />
+    <section class="py-12 px-4 md:px-6 lg:px-8">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-4">{pageTitle}</h1>
+            <p class="text-lg mb-8">
+                Aquí se mostrará la información detallada sobre el servicio: <strong
+                    >{serviceName}</strong
+                >.
+            </p>
+
+            {/* Aquí puedes añadir más contenido específico del servicio */}
+            <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-3">
+                    Descripción del Servicio
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <h3 class="text-xl font-semibold mt-6 mb-2">
+                    Características Clave
+                </h3>
+                <ul class="list-disc list-inside ml-4">
+                    <li>Característica 1</li>
+                    <li>Característica 2</li>
+                    <li>Característica 3</li>
+                    <!-- Example content -->
+                    <h1>Service: {slot}</h1>
+                    <p>
+                        This is the page for the service: {
+                            slot.replace(/-/g, " ")
+                        }
+                    </p>
+                </ul>
+
+                <a
+                    href="/"
+                    class="inline-block mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+                >
+                    Volver a Inicio
+                </a>
+            </div>
+        </div>
+    </section>
+</Layout>

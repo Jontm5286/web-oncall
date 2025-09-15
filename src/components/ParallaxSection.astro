@@ -1,0 +1,63 @@
+---
+// src/components/ParallaxSection.astro
+
+// Define the properties for the component
+interface Props {
+  id?: string;
+  Class?: string;
+  imageUrl: string; // URL for the background image
+  heightClass?: string; // Tailwind CSS class for height, e.g., 'h-screen', 'h-[500px]'
+  overlayClass?: string; // Tailwind CSS class for an optional overlay, e.g., 'bg-black/50'
+}
+
+const {
+  id = "Hero",
+  Class = "bg-blend-multiply max-w-screen mx-auto text-center bg-black/70 flex text-balance w-full scroll-section",
+  imageUrl,
+  overlayClass = "bg-blend-multiply bg-black/70",
+  heightClass = "h-[90dvh]",
+} = Astro.props as Props;
+---
+
+<section
+  id={id}
+  class:list={[
+    "relative w-full overflow-hidden", // Base container for positioning
+    heightClass,
+    Class, // Apply height from props
+  ]}
+>
+  {/* Background image layer with parallax effect */}
+  <div
+    class:list={[
+      "absolute inset-0", // Cover the parent div
+      "bg-fixed bg-cover bg-center", // Parallax effect classes
+    ]}
+    style={`background-image: url(${imageUrl});`}
+    aria-hidden="true"
+    role="presentation"
+  >
+  </div>
+
+  {/* Optional overlay layer */}
+  {
+    overlayClass && (
+      <div
+        class:list={["absolute inset-0", overlayClass]}
+        aria-hidden="true"
+        role="presentation"
+      />
+    )
+  }
+
+  {/* Content layer */}
+  <div
+    class:list={[
+      "w-full relative z-10 flex flex-col items-center justify-center text-center text-white p-4", // Content styling
+      heightClass, // Ensure content container also respects height for centering
+    ]}
+  >
+    <slot />
+    {/* Slot for content like text, buttons, etc. */}
+  </div>
+</section>

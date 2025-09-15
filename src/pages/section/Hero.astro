@@ -1,0 +1,95 @@
+---
+import Button from "@components/Button.astro";
+import ParallaxSection from "@components/ParallaxSection.astro";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  backgroundImage?: string;
+}
+
+const {
+  title = "El futuro de los Centros de Contacto en Salud",
+  subtitle = "Combinamos inteligencia artificial y agentes humanos para transformar la experiencia del paciente.",
+  primaryButtonText = "Solicita una demo",
+  secondaryButtonText = "Contactar con nosotros",
+  backgroundImage = "src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg",
+} = Astro.props as Props;
+---
+
+<ParallaxSection imageUrl={backgroundImage}>
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center flex items-center justify-center h-screen flex-col">
+      <h1
+        id="hero-title"
+        class="font-extrabold leading-none lg:text-6xl mb-6 md:text-5xl text-4xl text-white tracking-tight max-w-4xl mx-auto"
+      >
+        {title}
+      </h1>
+      <p
+        id="hero-subtitle"
+        class="font-normal lg:text-xl mb-10 text-white text-lg max-w-3xl mx-auto"
+      >
+        {subtitle}
+      </p>
+      <div
+        id="hero-buttons"
+        class="flex flex-col gap-3 sm:gap-8 sm:flex-row sm:justify-center sm:space-y-0 space-y-4 mx-auto"
+      >
+        <Button
+          id="hero-primary-btn"
+          href="#"
+          text={primaryButtonText}
+          variant="primary"
+          icon="flowbite:arrow-right-outline"
+          customClass="opacity-0"
+        />
+        <Button
+          id="hero-secondary-btn"
+          href="#Services"
+          text={secondaryButtonText}
+          variant="secondary"
+          customClass="opacity-0"
+        />
+      </div>
+    </div>
+  </div>
+</ParallaxSection>
+
+<script>
+  import { gsap } from "gsap";
+  // import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+  // gsap.registerPlugin(ScrollTrigger, SplitText);
+  var tl = gsap.timeline();
+  // Use the function to animate hero buttons
+
+  let split = SplitText.create("#hero-title", { type: "lines" });
+  //now animate each character into place from 20px below, fading in:
+  tl.from(split.lines, {
+    y: 20,
+    autoAlpha: 0,
+    stagger: 0.3,
+  })
+    .from("#hero-subtitle", {
+      y: 50,
+      // duration: 1,
+      opacity: 0,
+      ease: "power2.inOut",
+      // stagger: 0.5,
+    })
+    .to("#hero-primary-btn", {
+      Opacity: 1,
+      ease: "power2.inOut",
+    })
+    .to(
+      "#hero-secondary-btn",
+      {
+        Opacity: 1,
+        ease: "power2.inOut",
+      },
+      "<+1"
+    );
+</script>

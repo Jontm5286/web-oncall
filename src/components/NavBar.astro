@@ -1,0 +1,91 @@
+---
+import { Icon } from "astro-icon/components";
+import Button from "@root/components/Button.astro";
+import NavLink from "@root/components/NavLink.astro";
+---
+
+<nav class="flex justify-center items-center m-4 fixed z-20 left-0 right-0">
+  <div
+    id="nav-bar"
+    class="w-full bg-primary-400 max-w-screen-xl mx-auto px-4 sm:py-2 flex flex-wrap items-center justify-between rounded-lg"
+  >
+    <div class="items-center justify-between">
+      <a href="/">
+        <Icon id="logo" name="logo_light" class="h-14 w-auto" />
+      </a>
+    </div>
+    <div
+      id="contact-button"
+      class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
+    >
+      <Button
+        href="#"
+        as="link"
+        text="Contactanos"
+        variant="secondary"
+        customClass=" hidden md:block"
+      />
+      <Button
+        icon="ic:round-menu"
+        type="button"
+        as="button"
+        variant="secondary"
+        customClass="md:hidden block"
+        data-collapse-toggle="navbar-sticky"
+        iconSize="size-4"
+        onclick="document.getElementById('navbar-sticky').classList.toggle('hidden');"
+      />
+    </div>
+    <div
+      id="navbar-sticky"
+      class="items-center justify-between me-4 w-full md:flex md:w-auto md:order-1 bg-primary-500 md:bg-transparent absolute md:static top-16 left-0 right-0 px-4 py-2 md:px-0 md:py-0 rounded-lg shadow-md md:shadow-none hidden"
+    >
+      <ul
+        class="flex flex-col py-2 md:p-0 font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+      >
+        <NavLink href="/" text="Home" isActive={true} />
+        <NavLink href="#" text="About" />
+        <NavLink href="#" text="Services" />
+        <NavLink href="#" text="Contact" />
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  import { gsap } from "gsap";
+  var tl = gsap.timeline();
+
+  tl.from("#nav-bar", {
+    y: -100,
+    duration: 1,
+    opacity: 1,
+    ease: "power2.inOut",
+  })
+    .from(
+      "#logo",
+      {
+        x: 50,
+        duration: 1,
+        opacity: 0,
+        ease: "power2.inOut",
+      },
+      "<=1"
+    )
+    .from(
+      "#contact-button",
+      {
+        x: -50,
+        duration: 1,
+        opacity: 0,
+        ease: "power2.inOut",
+      },
+      "<"
+    )
+    .from(".nav-link", {
+      y: -10,
+      duration: 1,
+      opacity: 0,
+      ease: "power2.inOut",
+      stagger: 0.1,
+    });
+</script>

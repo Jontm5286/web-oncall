@@ -1,0 +1,102 @@
+---
+import Card from "@components/Card.astro";
+import { animate } from "animejs";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  backgroundImage?: string;
+}
+
+const {
+  title = "Nuestros Servicios para Healthcare",
+  subtitle = "Soluciones de contact center especializadas en healthcare",
+  primaryButtonText = "Conoce nuestras soluciones",
+  secondaryButtonText = "Contactar ahora",
+  backgroundImage = "src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg",
+} = Astro.props as Props;
+
+const services = [
+  {
+    id: 1,
+    title: "Operación de Centro de Contacto",
+    description:
+      "Gestión profesional de todos los canales de atención al paciente, asegurando una comunicación efectiva y personalizada.",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    id: 2,
+    title: "Experiencia del Paciente",
+    description:
+      "Diseñamos y mejoramos continuamente la experiencia del paciente en cada punto de contacto con su proveedor de salud.",
+    image:
+      "https://images.unsplash.com/photo-1505751172876-fa186e9a3ff0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    id: 3,
+    title: "Confirmación de Citas Múltiples",
+    description:
+      "Sistema automatizado para la confirmación de citas que reduce las inasistencias y optimiza la agenda médica.",
+    image:
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    id: 4,
+    title: "Prefacturación Autogestionada",
+    description:
+      "Solución digital que permite a los pacientes gestionar sus facturas médicas de manera sencilla y segura.",
+    image:
+      "https://images.unsplash.com/photo-1554224155-3a58922a22c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    id: 5,
+    title: "Dashboards en Power BI",
+    description:
+      "Visualización de datos en tiempo real para la toma de decisiones estratégicas en el sector salud.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    id: 6,
+    title: "Encuestas de Satisfacción",
+    description:
+      "Recopilación y análisis de la satisfacción del paciente para la mejora continua de los servicios de salud.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+  },
+];
+---
+
+<section id="#" class="bg-secondary-50 py-24 scroll-section">
+  <div
+    class="gap-8 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6"
+  >
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary-900">
+      {title}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+      {
+        services.map((service) => (
+          <Card
+            title={service.title}
+            description={service.description}
+            image={service.image}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from("#hero-title", {
+    scrollTrigger: "#hero-title",
+    y: 50,
+  });
+</script>

@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import Button from "@components/Button.astro";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  backgroundImage?: string;
+}
+
+const {
+  title = "Transformando la experiencia del paciente",
+  subtitle = "Flowbite helps you connect with friends and communities of people who share your interests.",
+  primaryButtonText = "Ver caso",
+  secondaryButtonText = "Contactar ahora",
+  backgroundImage = "/src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg",
+} = Astro.props as Props;
+---
+
+<section
+  class="bg-secondary-50 flex flex-wrap content-center h-[110dvh] scroll-section"
+>
+  <div
+    class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6"
+  >
+    <Image
+      class="w-full rounded-lg"
+      src={backgroundImage}
+      alt="dashboard image"
+      width="500"
+      height="500"
+      loading="lazy"
+    />
+    <div class="mt-8 md:mt-0">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary-900">
+        {title}
+      </h2>
+      <p class="mb-6 font-light text-secondary-500 md:text-lg">
+        {subtitle}
+      </p>
+      <Button href="#" text={primaryButtonText} variant="primary" />
+    </div>
+  </div>
+</section>

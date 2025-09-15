@@ -1,0 +1,20 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../pages/section/Footer.astro";
+import Navbar from "../components/NavBar.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <BaseHead />
+  <body>
+    <header>
+      <Navbar />
+    </header>
+    <main>
+      <slot />
+      <!-- Astro slot para inyectar contenido de la página -->
+    </main>
+    <Footer />
+  </body>
+</html>

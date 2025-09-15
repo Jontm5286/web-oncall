@@ -1,0 +1,80 @@
+---
+import Layout from "@root/layouts/Layout.astro";
+import Hero from "@pages/section/Hero.astro";
+import About from "@pages/section/About.astro";
+import Features from "@pages/section/Features.astro";
+import UserCase from "@pages/section/UserCase.astro";
+import Statistic from "@pages/section/Statistic.astro";
+import CarouselLogo from "@pages/section/CarouselLogos.astro";
+import Services from "@pages/section/Services.astro";
+import Blog from "@pages/section/Blog.astro";
+import Contact from "@pages/section/Contact.astro";
+import { Image } from "astro:assets";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Button from "@components/Button.astro";
+---
+
+<Layout>
+  <Hero />
+  <Features />
+  <About />
+  <Services />
+
+  <section class="flex content-center bg-secondary-50 h-[90dvh] scroll-section">
+    <div
+      class="gap-8 items-center py-8 px-4 mx-auto max-w-6xl xl:gap-16 md:grid md:grid-cols-2 lg:px-6"
+    >
+      <Image
+        class="w-full rounded-lg mask-svg transform transition-all duration-500 ease-in-out animate-fade-in animate-duration-1000 animate-ease-in animate-fill-mode-forwards"
+        src="/src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg"
+        alt="dashboard image"
+        width="500"
+        height="500"
+        loading="lazy"
+      />
+      <div class="mt-4 md:mt-0">
+        <h2
+          class="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-secondary-900"
+        >
+          Cómo funciona OnCall
+        </h2>
+        <!-- 
+        <p class="mb-6 font-light text-secondary-00 md:text-lg">
+          CEMDOE confió en OnCall para administrar toda su operación de call
+          center. Gracias a nuestra solución, lograron mejorar la reprogramación
+          de citas, reducir cancelaciones y brindar una experiencia más ágil y
+          personalizada a cada paciente.
+        </p> -->
+
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold mb-3 text-secondary-800">
+            Beneficios obtenidos:
+          </h3>
+          <ul class="space-y-3 list-decimal list-inside text-secondary-600">
+            <li>Agendamiento y confirmación automática de citas</li>
+            <li>IA que predice y gestiona ausencias</li>
+            <li>Agentes especializados apoyados en CRM + IA</li>
+            <li>Prefacturación y pagos online integrados</li>
+            <li>Encuestas automatizadas para mejorar la experiencia</li>
+          </ul>
+        </div>
+
+        <Button href="#" text="Ver caso" variant="primary" />
+      </div>
+    </div>
+  </section>
+
+  <!-- <UserCase title="Transformando la experiencia del paciente" /> -->
+  <CarouselLogo />
+  <!-- <Statistic title="Clientes satisfechos" /> -->
+  <!-- <Blog /> -->
+  <Contact />
+  <!--<ScrollToTop /> -->
+  <!-- <script>
+    gsap.to("#hero-title", {
+      scrollTrigger: "#hero-title",
+      y: 50,
+    });
+  </script> -->
+</Layout>

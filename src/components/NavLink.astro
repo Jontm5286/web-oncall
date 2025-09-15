@@ -1,0 +1,24 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  isActive?: boolean;
+}
+
+const { href, text, isActive = false } = Astro.props;
+
+const activeClasses =
+  "nav-link block py-2 px-3 text-primary-900 bg-primary-500 rounded-md md:bg-transparent md:text-primary-950 md:p-0 md:border-0";
+const inactiveClasses =
+  "nav-link block py-2 px-3 text-primary-100 rounded-md hover:bg-primary-800 hover:text-primary-200 sm:hover:bg-transparent sm:hover:text-primary-600 md:p-0 md:dark:hover:text-primary-500 dark:text-white dark:hover:text-white";
+---
+
+<li>
+  <a
+    href={href}
+    class={isActive ? activeClasses : inactiveClasses}
+    aria-current={isActive ? "page" : undefined}
+  >
+    {text}
+  </a>
+</li>

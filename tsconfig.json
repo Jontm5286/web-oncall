@@ -1,0 +1,25 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "astro",
+    "verbatimModuleSyntax": true,
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin",
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "astro:assets": ["node_modules/astro/client/assets.d.ts"],
+      "@assets/*": ["src/assets/*"],
+      "@icons/*": ["src/icons/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@root/*": ["src/*"]
+    },
+    "types": ["astro/client"]
+  }
+}

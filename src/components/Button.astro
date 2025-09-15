@@ -1,0 +1,111 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  text?: string; // Make text optional
+  id?: string;
+  variant?: "primary" | "secondary" | "outline";
+  icon?: string;
+  iconSize?: string;
+  customClass?: string;
+  as?: "link" | "button"; // New prop to define the tag type
+  href?: string; // Optional if it's a button
+  type?: "button" | "submit" | "reset"; // HTML button type, only relevant if 'as' is 'button'
+  isDisabled?: boolean; // New prop for disabled state
+  isLoading?: boolean; // New prop for loading state
+  // Allow any other HTML attributes
+  [key: string]: any;
+}
+
+const {
+  text = "", // Default to empty string if not provided
+  id,
+  variant = "primary",
+  icon,
+  iconSize = "",
+  customClass = "",
+  as = "link", // Default to 'a'
+  href,
+  type = "button", // Default button type
+  isDisabled = false, // Default to false
+  isLoading = false, // Default to false
+  ...rest // Collect all other props
+} = Astro.props as Props;
+
+// Base classes for the button/link
+const baseClasses = `inline-flex justify-center duration-300 ease-in items-center text-base font-medium text-center rounded-lg focus:ring-2 focus:ring-secondary-300 focus:outline-none`;
+
+// Variant specific classes
+// Define variant-specific classes using a map for better readability and maintainability
+const variantClassesMap = {
+  primary:
+    "text-white bg-primary-500 hover:bg-primary-600 focus:ring-primary-300 hover:focus:border-primary-800 hover:shadow-lg",
+  secondary:
+    "text-secondary-800 bg-secondary-100 border border-secondary-400 hover:ring-2 hover:ring-primary-600 hover:text-primary-950 hover:bg-secondary-300 focus:ring-secondary-600",
+  outline:
+    "text-white bg-transparent border border-white hover:bg-secondary-700 hover:text-white focus:ring-secondary-300",
+};
+
+const variantClasses = variantClassesMap[variant] || variantClassesMap.primary; // Default to primary if variant is not found
+
+// Padding classes - square padding for icon-only buttons
+const paddingClasses = !text && icon ? "p-3" : "py-3 px-5 ";
+
+// Add disabled and loading states
+const stateClasses = isDisabled
+  ? "opacity-50 cursor-not-allowed"
+  : isLoading
+    ? "cursor-wait"
+    : "";
+
+const commonClasses =
+  `${baseClasses} ${paddingClasses} ${variantClasses} ${stateClasses} ${customClass}`.trim();
+---
+
+{
+  as === "link" ? (
+    <a
+      href={href}
+      class={commonClasses}
+      aria-label={!text && icon ? "icon button" : undefined}
+      id={id}
+      {...rest}
+      {...(isDisabled || isLoading
+        ? { "aria-disabled": "true", "data-disabled": "true" }
+        : {})}
+    >
+      {isLoading && (
+        // <Icon name="mdi:loading" class="animate-spin" />
+        <Icon
+          name="mdi:loading"
+          class={`animate-spin${iconSize} ${text ? "mr-2 animate-spin" : ""}`}
+        />
+      )}
+
+      {text}
+      {icon && !isLoading && (
+        <Icon name={icon} class={`${iconSize} ${text ? "ms-2" : ""}`} />
+      )}
+    </a>
+  ) : (
+    <button
+      type={type}
+      class={commonClasses}
+      aria-label={!text && icon ? "icon button" : undefined}
+      disabled={isDisabled || isLoading}
+      id={id}
+      {...rest}
+    >
+      {isLoading && (
+        <Icon
+          name="mdi:loading"
+          class={`animate-spin${iconSize} ${text ? "mr-2 animate-spin" : ""}`}
+        />
+      )}
+      {text}
+      {icon && !isLoading && (
+        <Icon name={icon} class={`${iconSize} ${text ? "ms-2" : ""}`} />
+      )}
+    </button>
+  )
+}

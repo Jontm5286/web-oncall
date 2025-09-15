@@ -1,0 +1,142 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+// Define the interface for a single logo
+interface Logo {
+  src?: string; // Icon name for astro-icon
+  alt?: string; // Alt text for accessibility
+}
+
+// Define the props for the component
+interface Props {
+  title?: string;
+  logos?: Logo[]; // Array of logo objects
+  speed?: string; // Animation speed, e.g., "20s", "30s"
+  logoWidth?: number; // Width of each logo item in pixels
+  logoGap?: number; // Gap between logos in pixels
+}
+const exampleLogos = [
+  { src: "logo_dark", alt: "OnCall Logo" },
+  { src: "logo_light", alt: "OnCall Logo Light" },
+  { src: "logo_dark", alt: "OnCall Logo" },
+  { src: "logo_light", alt: "OnCall Logo Light" },
+  { src: "logo_dark", alt: "OnCall Logo" },
+  { src: "logo_light", alt: "OnCall Logo Light" },
+  // ... más logos
+];
+// Destructure props with default values
+const {
+  title,
+  logos = exampleLogos || [],
+  speed = "45", // Default animation speed
+  logoWidth = 150, // Default width for each logo's container
+  logoGap = 50, // Default gap between logos
+} = Astro.props;
+// logos={exampleLogos} speed="45" logoWidth={100} logoGap={50}
+// Calculate the effective width of each logo item (logo width + gap)
+const logoItemEffectiveWidth = logoWidth + logoGap;
+// Calculate the total width of the original set of logos
+const originalTrackWidth = logos.length * logoItemEffectiveWidth;
+
+// Generate a unique ID for the carousel track to target it with GSAP
+const carouselTrackId = `logo-carousel-track-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<section id="carousel-Logo" class="bg-secondary-50 py-8 scroll-section">
+  <div class="mx-auto max-w-screen-xl px-4">
+    {
+      title && title !== "" && (
+        <h2 class="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-secondary-900 md:text-4xl">
+          {title}
+        </h2>
+      )
+    }
+    {
+      logos && logos.length > 0 && (
+        <div
+          class="relative w-full overflow-hidden logo-carousel-container"
+          role="region"
+          aria-label={title || "Logo Carousel"}
+        >
+          <div
+            id={carouselTrackId}
+            class="flex logo-carousel-track "
+            style={`width: ${originalTrackWidth * 2}px;`}
+            data-single-track-width={originalTrackWidth}
+            data-animation-speed={speed}
+          >
+            {logos.map((logo) => (
+              <div
+                class="flex items-center justify-center shrink-0 logo-item-wrapper"
+                style={`width: ${logoWidth}px; margin-right: ${logoGap}px;`}
+              >
+                <Icon
+                  id="logo"
+                  name={logo.src}
+                  class="h-14 w-auto text-secondary-500 filter grayscale transition-all duration-300 group-hover:scale-125 group-hover:filter-none group-hover:text-primary-600"
+                  aria-label={logo.alt}
+                />
+              </div>
+            ))}
+            {logos.map((logo) => (
+              <div
+                class="flex items-center justify-center shrink-0 logo-item-wrapper"
+                aria-hidden="true"
+                style={`width: ${logoWidth}px; margin-right: gap-${logoGap};`}
+              >
+                <Icon
+                  id="logo"
+                  name={logo.src}
+                  class="h-14 w-auto text-secondary-500 filter grayscale transition-all duration-300 group-hover:scale-125 group-hover:filter-none group-hover:text-primary-600"
+                  aria-hidden="true"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const track = document.querySelector(".logo-carousel-track");
+  const logos = document.querySelectorAll(".logo-carousel-track #logo");
+  const logoWidth = logos[0].offsetWidth + 50; // Ancho del logo + gap (ajustar según CSS)
+  var tl = gsap.timeline();
+  tl.to(".logo-carousel-track", {
+    x: -logoWidth * (logos.length / 2), // Move the track to the left
+    ease: "none", // Use linear easing
+    duration: 10, // Adjust the duration as needed
+    repeat: -1, // Loop the animation indefinitely
+  });
+  // Pausar al hacer hover
+  track.addEventListener("mouseenter", () => tl.pause());
+  track.addEventListener("mouseleave", () => tl.play());
+  // GSAP animation to make the carousel track move
+  // gsap.timeline({
+  //   repeat: -1, // Loop the animation indefinitely
+  //   defaults: { duration: 1 },
+  // })
+</script>
+
+<style is:inline>
+  .logo-carousel-container {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+</style>

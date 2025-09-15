@@ -1,0 +1,72 @@
+---
+import FeatureCard from "@components/FeatureCard.astro";
+interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  backgroundImage?: string;
+}
+const {
+  title = "¿Qué hacemos en OnCall?",
+  subtitle = "Nuestro objetivo es transformar la experiencia del paciente.",
+  primaryButtonText = "Ver caso",
+  secondaryButtonText = "Contactar ahora",
+  backgroundImage = "/src/assets/woman-working-call-center-talking-with-clients-using-headphones-microphone.jpg",
+} = Astro.props as Props;
+---
+
+<section id="Services" class="flex flex-wrap content-center scroll-section">
+  <div class="py-8 px-4 mx-auto my-20 max-w-screen-xl sm:py-16 lg:px-6">
+    <div class="max-w-screen-md mb-8 lg:mb-16">
+      <h2
+        class="mb-4 text-4xl tracking-tight font-extrabold text-secondary-900"
+      >
+        {title}
+      </h2>
+      <p class="sm:text-xl text-secondary-800">
+        {subtitle}
+      </p>
+    </div>
+    <div
+      class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-5 md:gap-12 md:space-y-0"
+    >
+      <FeatureCard
+        iconName="mdi:call"
+        title="Gestión omnicanal"
+        description="voz, WhatsApp, correo, app, redes sociales."
+        href="/services/gestion-integral-clientes"
+      />
+      <FeatureCard
+        iconName="mdi:robot"
+        title="IA aplicada al contact center"
+        description="bots inteligentes, workflows automatizados, predicción de ausencias."
+        href="/services/automatizacion-inteligente"
+      />
+      <FeatureCard
+        iconName="mdi:customer-service"
+        title="Customer Journey completo"
+        description="desde agendamiento hasta encuestas de satisfacción."
+        href="/services/soporte-multicanal"
+      />
+      <FeatureCard
+        iconName="mdi:account-payment"
+        title="Prefacturación digital"
+        description="pagos online seguros e integrados."
+        href="/services/prefacturacion-digital"
+      />
+      <FeatureCard
+        iconName="mdi:tablet-dashboard"
+        title="Dashboards Power BI"
+        description="reportes en tiempo real y toma de decisiones ágil."
+        href="/services/dashboards-power-bi"
+      />
+      <!-- <FeatureCard
+        iconName="mdi:shield"
+        title="Soluciones omnicanal"
+        description="soluciones para cualquier industria."
+        href="/services/soluciones-por-industria"
+      /> -->
+    </div>
+  </div>
+</section>
