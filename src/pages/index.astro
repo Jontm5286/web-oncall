@@ -3,16 +3,12 @@ import Layout from "@root/layouts/Layout.astro";
 import Hero from "@pages/section/Hero.astro";
 import About from "@pages/section/About.astro";
 import Features from "@pages/section/Features.astro";
-import UserCase from "@pages/section/UserCase.astro";
-import Statistic from "@pages/section/Statistic.astro";
 import CarouselLogo from "@pages/section/CarouselLogos.astro";
 import Services from "@pages/section/Services.astro";
-import Blog from "@pages/section/Blog.astro";
 import Contact from "@pages/section/Contact.astro";
 import { Image } from "astro:assets";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@components/Button.astro";
+import Statistic from "@pages/section/Statistic.astro";
 ---
 
 <Layout>
@@ -67,7 +63,7 @@ import Button from "@components/Button.astro";
 
   <!-- <UserCase title="Transformando la experiencia del paciente" /> -->
   <CarouselLogo />
-  <!-- <Statistic title="Clientes satisfechos" /> -->
+  <Statistic title="Nuestros clientes" />
   <!-- <Blog /> -->
   <Contact />
   <!--<ScrollToTop /> -->

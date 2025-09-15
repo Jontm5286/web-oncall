@@ -2,28 +2,22 @@
 import StatisticItem from "@components/StatisticItem.astro";
 
 interface Props {
-    value: string;
-    label: string;
-    title: string;
+  title: string;
 }
-const { value, label, title } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <section class="bg-primary-700 scroll-section">
-    <div
-        class="max-w-screen-xlpx-4 py-16 xl:py-24 mx-auto text-center lg:py-16 lg:px-6"
-    >
-        <h2
-            class="mb-4 mx-12 text-4xl tracking-tight font-extrabold text-white"
-        >
-            {title}
-        </h2>
-        <dl
-            class="grid max-w-screen-md lg:gap-8 mx-auto grid-cols-3 text-white"
-        >
-            <StatisticItem value="73M+" label="Cliente" />
-            <StatisticItem value="1B+" label="llamadas" />
-            <StatisticItem value="4M+" label="empresas satisfechas" />
-        </dl>
-    </div>
+  <div
+    class="max-w-screen-xlpx-4 py-16 xl:py-24 mx-auto text-center lg:py-16 lg:px-6"
+  >
+    <h2 class="mb-4 mx-12 text-4xl tracking-tight font-extrabold text-white">
+      {title}
+    </h2>
+    <dl class="grid max-w-screen-md lg:gap-8 mx-auto grid-cols-3 text-white">
+      <StatisticItem value="73M+" label="Cliente" />
+      <StatisticItem value="1B+" label="llamadas" />
+      <StatisticItem value="4M+" label="empresas satisfechas" />
+    </dl>
+  </div>
 </section>
